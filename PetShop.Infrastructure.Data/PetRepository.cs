@@ -4,7 +4,8 @@ using System.Text;
 
 namespace PetShop.Infrastructure.Data
 {
-    class PetShopRepository
+    class PetRepository
     {
+        
     }
 }
