@@ -14,14 +14,14 @@ namespace PetShop.Infrastructure.Data
             Pet cat = new Pet()
             {
                 Name = "Jazz",
-                Id = id,
+                Id = id++,
                 Type = "Cat"
 
             };
             Pet dog = new Pet()
             {
                 Name = "Something",
-                Id = id,
+                Id = id++,
                 Type = "dog"
 
             };

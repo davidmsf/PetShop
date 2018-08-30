@@ -15,13 +15,13 @@ namespace ConsoleApp3
 
             MainMenu();
         }
-
+        
         private void MainMenu()
         {
             int selection = -1;
-            string[] menuItems = { "Show all pets", "Add", "Delete", "Search by type", "Exit" };
+            string[] menuItems = { "Show all pets", "Add", "Update", "Delete", "Search by type", "Exit" };
 
-            while (selection != 5)
+            while (selection != 6)
             {
                 switch (selection)
                 {
@@ -35,10 +35,16 @@ namespace ConsoleApp3
                         break;
                     case 3:
                         ShowAllPets();
-                        Delete();
+                        var pet = GetPetById();
+                        UpdatePet(pet);
                         GoBack();
                         break;
                     case 4:
+                        ShowAllPets();
+                        Delete();
+                        GoBack();
+                        break;
+                    case 5:
                         List<string> typesOfPets = GetTypes();
                         PrintTypes(typesOfPets);
                         SearchPetsByType(typesOfPets);
@@ -52,21 +58,31 @@ namespace ConsoleApp3
             }
         }
 
+        private void UpdatePet(Pet pet)
+        {
+            Console.WriteLine("1. Name - "+pet.Name
+                            +"2. Type - "+pet.Type
+                            +"3. Previous Owner - "+pet.PreviousOwner
+                            +"4. Price - "+pet.Price
+                            );
+        }
+
         private void SearchPetsByType(List<string> typesOfPets)
         {
             Console.WriteLine("Select the type you want to search");
             int.TryParse(Console.ReadLine(), out int typeNr);
-            List<Pet> pets = _petService.GetPetsByType(typesOfPets[typeNr]);
-            foreach (var pet in pets)
+            if(typeNr < typesOfPets.Count && typeNr >= 0)
             {
-                Console.WriteLine(pet.Name);
+                List<Pet> pets = _petService.GetPetsByType(typesOfPets[typeNr]);
+                foreach (var pet in pets)
+                {
+                    Console.WriteLine(pet.Name);
+                }
             }
-
         }
 
         private static void PrintTypes(List<string> typesOfPets)
         {
-            
             for(int i = 0; i < typesOfPets.Count; i++)
             {
                 Console.WriteLine(i+" - "+ typesOfPets[i]);
@@ -94,8 +110,12 @@ namespace ConsoleApp3
             Console.WriteLine("Write the type of the pet:");
             pet.Type = Console.ReadLine();
 
+            double price;
             Console.WriteLine("Write the price of the pet:");
-            double.TryParse(Console.ReadLine(), out double price);
+            while (!double.TryParse(Console.ReadLine(), out price))
+            {
+                Console.WriteLine("Write the price of the pet:");
+            }
             pet.Price = price;
 
             var newPet = _petService.CreatePet(pet);
@@ -119,16 +139,11 @@ namespace ConsoleApp3
 
         private void GoBack()
         {
-            while (true)
-            {
-                Console.WriteLine("Press 1 to go back");
-                int selection = int.Parse(Console.ReadLine());
-                if (selection == 1)
-                {
-                    Console.Clear();
-                    break;
-                }
-            }
+
+            Console.WriteLine("Press Enter to go back");
+            Console.ReadLine();
+            Console.Clear();
+             
         }
 
         private void ShowAllPets()
