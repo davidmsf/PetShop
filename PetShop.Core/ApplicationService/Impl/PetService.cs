@@ -15,9 +15,39 @@ namespace PetShop.Core.ApplicationService.Impl
             _petRepository = petRepository;
         }
 
+        public Pet CreatePet(Pet pet)
+        {
+            return _petRepository.CreatePet(pet);
+        }
+
+        public void Delete(int id)
+        {
+            _petRepository.Delete(id);
+        }
+
+        public Pet GetNewPet()
+        {
+            return new Pet();
+        }
+
+        public Pet GetPetById(int id)
+        {
+            return _petRepository.GetPetById(id);
+        }
+
         public List<Pet> GetPets()
         {
             return _petRepository.ReadPets().ToList();
+        }
+
+        public List<Pet> GetPetsByType(string type)
+        {
+            return _petRepository.ReadPets().Where(pet => pet.Type.Equals(type)).ToList();
+        }
+
+        public List<string> GetTypesOfPets()
+        {
+            return _petRepository.ReadPets().Select(pet => pet.Type).Distinct().ToList();
         }
     }
 }
