@@ -7,7 +7,7 @@ using PetShop.Core.Entity;
 
 namespace PetShop.Core.ApplicationService.Impl
 {
-    class PetService : IPetService
+    public class PetService : IPetService
     {
         private readonly IPetRepository _petRepository;
         public PetService(IPetRepository petRepository)

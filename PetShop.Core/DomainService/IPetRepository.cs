@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PetShop.Core.DomainService
 {
-    interface IPetRepository
+    public interface IPetRepository
     {
         IEnumerable<Pet> ReadPets();
     }

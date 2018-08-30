@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PetShop.Core.ApplicationService
 {
-    interface IPetService
+    public interface IPetService
     {
         List<Pet> GetPets();
     }
