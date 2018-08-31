@@ -3,6 +3,7 @@ using PetShop.Core.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace PetShop.Infrastructure.Data
@@ -35,6 +36,22 @@ namespace PetShop.Infrastructure.Data
         public IEnumerable<Pet> ReadPets()
         {
             return FakeDB.pets;
+        }
+
+        public Pet UpdatePet(Pet updatedPet, string property)
+        {
+            var pet = GetPetById(updatedPet.Id);
+            if (pet != null)
+            {
+                var prop = pet.GetType().GetProperty(property);
+                if (prop != null)
+                {
+                    prop.SetValue(pet, updatedPet.GetType().GetProperty(property).GetValue(updatedPet));
+                    
+                }
+                return pet;
+            }
+            return null;
         }
     }
 }

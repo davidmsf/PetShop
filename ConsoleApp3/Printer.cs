@@ -60,31 +60,34 @@ namespace ConsoleApp3
 
         private void UpdatePet(Pet pet)
         {
-            Console.WriteLine(" 1. Name - " + pet.Name
-                            + " 2. Type - " + pet.Type
-                            + " 3. Previous owner - " + pet.PreviousOwner
-                            + " 4. Price - " + pet.Price
-                            + " 5. Sold date - " + pet.SoldDate
-                            + " 6. Bith date - " + pet.BirthDate
-                            + " 7. Color - " + pet.Color
-                            );
 
-            Console.ReadLine();
+            Console.WriteLine("1. Name - " + pet.Name);
+            Console.WriteLine("2. Type - " + pet.Type);
+            Console.WriteLine("3. Previous owner - " + pet.PreviousOwner);
+            Console.WriteLine("4. Price - " + pet.Price);
+            Console.WriteLine("5. Sold date - " + pet.SoldDate);
+            Console.WriteLine("6. Bith date - " + pet.BirthDate);
+            Console.WriteLine("7. Color - " + pet.Color);
+                            
 
             int selection = int.Parse(Console.ReadLine());
+            string property = "";
             switch (selection)
             {
                 case 1:
                     Console.WriteLine("Write the name of the pet:");
                     pet.Name = Console.ReadLine();
+                    property = "Name";
                     break;
                 case 2:
                     Console.WriteLine("Write the type of the pet:");
                     pet.Type = Console.ReadLine();
+                    property = "Type";
                     break;
                 case 3:
                     Console.WriteLine("Write the previous owner of the pet:");
                     pet.PreviousOwner = Console.ReadLine();
+                    property = "PreviousOwner";
                     break;
                 case 4:
                     double price;
@@ -94,6 +97,7 @@ namespace ConsoleApp3
                         Console.WriteLine("Write the price of the pet:");
                     }
                     pet.Price = price;
+                    property = "Price";
                     break;
                 case 5:
                     DateTime soldDate;
@@ -102,6 +106,7 @@ namespace ConsoleApp3
                         Console.WriteLine("Write the sold date of the pet(dd/MM/yyyy):");
                     }
                     pet.SoldDate = soldDate;
+                    property = "SoldDate";
                     break;
                 case 6:
                     DateTime birthDate;
@@ -110,18 +115,18 @@ namespace ConsoleApp3
                         Console.WriteLine("Write the birth date of the pet(dd/MM/yyyy):");
                     }
                     pet.BirthDate = birthDate;
+                    property = "BirthDate";
                     break;
                 case 7:
                     Console.WriteLine("Write the color of the pet:");
                     pet.Color = Console.ReadLine();
+                    property = "Color";
                     break;
-
-
-                var updatedPet = _petService.UpdatePet(pet);
-                if (updatedPet.Id > 0)
-                {
-                    Console.WriteLine("The pet has been updated");
-                }
+            }
+            var updatedPet = _petService.UpdatePet(pet, property);
+            if (updatedPet.Id > 0)
+            {
+                Console.WriteLine("The pet has been updated");
             }
         }
 

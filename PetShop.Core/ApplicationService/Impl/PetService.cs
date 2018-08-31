@@ -49,5 +49,10 @@ namespace PetShop.Core.ApplicationService.Impl
         {
             return _petRepository.ReadPets().Select(pet => pet.Type).Distinct().ToList();
         }
+
+        public Pet UpdatePet(Pet pet, string property)
+        {
+            return _petRepository.UpdatePet(pet, property);
+        }
     }
 }
