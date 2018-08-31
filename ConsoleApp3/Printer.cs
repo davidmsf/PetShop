@@ -68,6 +68,7 @@ namespace ConsoleApp3
                             + " 6. Bith date - " + pet.BirthDate
                             + " 7. Color - " + pet.Color
                             );
+
             Console.ReadLine();
 
             int selection = int.Parse(Console.ReadLine());
@@ -98,7 +99,7 @@ namespace ConsoleApp3
                     DateTime soldDate;
                     while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
                     {
-                        Console.WriteLine("Write the sold date of the pet:");
+                        Console.WriteLine("Write the sold date of the pet(dd/MM/yyyy):");
                     }
                     pet.SoldDate = soldDate;
                     break;
@@ -106,7 +107,7 @@ namespace ConsoleApp3
                     DateTime birthDate;
                     while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
                     {
-                        Console.WriteLine("Write the birth date of the pet:");
+                        Console.WriteLine("Write the birth date of the pet(dd/MM/yyyy):");
                     }
                     pet.BirthDate = birthDate;
                     break;
@@ -114,6 +115,13 @@ namespace ConsoleApp3
                     Console.WriteLine("Write the color of the pet:");
                     pet.Color = Console.ReadLine();
                     break;
+
+
+                var updatedPet = _petService.UpdatePet(pet);
+                if (updatedPet.Id > 0)
+                {
+                    Console.WriteLine("The pet has been updated");
+                }
             }
         }
 
