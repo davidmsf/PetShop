@@ -182,7 +182,7 @@ namespace ConsoleApp3
             pet.Price = price;
 
             DateTime soldDate;
-            Console.WriteLine("Write the sold date of the pet:");
+            Console.WriteLine("Write the sold date of the pet(dd/MM/yyyy):");
             while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
             {
                 Console.WriteLine("Write the sold date of the pet:");
@@ -190,7 +190,7 @@ namespace ConsoleApp3
             pet.SoldDate = soldDate;
 
             DateTime birthDate;
-            Console.WriteLine("Write the birth date of the pet:");
+            Console.WriteLine("Write the birth date of the pet(dd/MM/yyyy):");
             while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
             {
                 Console.WriteLine("Write the birth date of the pet:");
