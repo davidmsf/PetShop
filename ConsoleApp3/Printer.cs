@@ -60,11 +60,61 @@ namespace ConsoleApp3
 
         private void UpdatePet(Pet pet)
         {
-            Console.WriteLine("1. Name - "+pet.Name
-                            +"2. Type - "+pet.Type
-                            +"3. Previous Owner - "+pet.PreviousOwner
-                            +"4. Price - "+pet.Price
+            Console.WriteLine(" 1. Name - " + pet.Name
+                            + " 2. Type - " + pet.Type
+                            + " 3. Previous owner - " + pet.PreviousOwner
+                            + " 4. Price - " + pet.Price
+                            + " 5. Sold date - " + pet.SoldDate
+                            + " 6. Bith date - " + pet.BirthDate
+                            + " 7. Color - " + pet.Color
                             );
+            Console.ReadLine();
+
+            int selection = int.Parse(Console.ReadLine());
+            switch (selection)
+            {
+                case 1:
+                    Console.WriteLine("Write the name of the pet:");
+                    pet.Name = Console.ReadLine();
+                    break;
+                case 2:
+                    Console.WriteLine("Write the type of the pet:");
+                    pet.Type = Console.ReadLine();
+                    break;
+                case 3:
+                    Console.WriteLine("Write the previous owner of the pet:");
+                    pet.PreviousOwner = Console.ReadLine();
+                    break;
+                case 4:
+                    double price;
+                    Console.WriteLine("Write the price of the pet:");
+                    while (!double.TryParse(Console.ReadLine(), out price))
+                    {
+                        Console.WriteLine("Write the price of the pet:");
+                    }
+                    pet.Price = price;
+                    break;
+                case 5:
+                    DateTime soldDate;
+                    while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
+                    {
+                        Console.WriteLine("Write the sold date of the pet:");
+                    }
+                    pet.SoldDate = soldDate;
+                    break;
+                case 6:
+                    DateTime birthDate;
+                    while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
+                    {
+                        Console.WriteLine("Write the birth date of the pet:");
+                    }
+                    pet.BirthDate = birthDate;
+                    break;
+                case 7:
+                    Console.WriteLine("Write the color of the pet:");
+                    pet.Color = Console.ReadLine();
+                    break;
+            }
         }
 
         private void SearchPetsByType(List<string> typesOfPets)
@@ -118,6 +168,22 @@ namespace ConsoleApp3
             }
             pet.Price = price;
 
+            DateTime soldDate;
+            Console.WriteLine("Write the sold date of the pet:");
+            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
+            {
+                Console.WriteLine("Write the sold date of the pet:");
+            }
+            pet.SoldDate = soldDate;
+
+            DateTime birthDate;
+            Console.WriteLine("Write the birth date of the pet:");
+            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
+            {
+                Console.WriteLine("Write the birth date of the pet:");
+            }
+            pet.BirthDate = birthDate;
+            
             var newPet = _petService.CreatePet(pet);
             if (newPet.Id > 0)
             {
