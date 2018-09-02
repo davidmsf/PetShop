@@ -15,6 +15,7 @@ namespace ConsoleApp3
             MainMenu();
         }
         
+
         private void MainMenu()
         {
             int selection = -1;
@@ -70,6 +71,7 @@ namespace ConsoleApp3
             }
         }
 
+
         private void Show5CheapestPets()
         {
             List<Pet> cheapestPets = _petService.Show5CheapestPets();
@@ -80,6 +82,10 @@ namespace ConsoleApp3
             }
         }
 
+        /// <summary>
+        /// Is used in Show5CheapestPets() and SortByPrice() methods for printing the pets with the price first
+        /// </summary>
+        /// <param name="pet"></param>
         private static void PrintPetByPrice(Pet pet)
         {
             Console.WriteLine("Price: " + pet.Price
@@ -97,6 +103,7 @@ namespace ConsoleApp3
                                         + " - "
                                         + pet.SoldDate);
         }
+
 
         private void SortByPrice()
         {
@@ -127,6 +134,11 @@ namespace ConsoleApp3
 
         }
 
+        /// <summary>
+        /// Method for updating a single property of a pet.
+        /// The Updated pet and the name of the parameter is passed along as parametes to the core and then the infrastructure  
+        /// </summary>
+        /// <param name="pet"></param>
         private void UpdatePet(Pet pet)
         {
 
@@ -187,6 +199,7 @@ namespace ConsoleApp3
                     property = "Color";
                     break;
             }
+
             var updatedPet = _petService.UpdatePet(pet, property);
             if (updatedPet.Id > 0)
             {
@@ -206,6 +219,10 @@ namespace ConsoleApp3
             pet.SoldDate = soldDate;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="pet"></param>
         private static void WriteBirthDate(Pet pet)
         {
             DateTime birthDate;
@@ -254,11 +271,11 @@ namespace ConsoleApp3
         {
             Console.WriteLine("Id:"+pet.Id
                               + " - "
-                              +"Name: "+pet.Name
+                              +pet.Name
                               + " - "
-                              +"Type:"+pet.Type
+                              +pet.Type
                               + " - "
-                              +"Color:"+pet.Color
+                              +pet.Color
                               + " - "
                               +"Previous owner:"+pet.PreviousOwner
                               + " - "
