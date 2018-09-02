@@ -40,11 +40,21 @@ namespace PetShop.Core.ApplicationService.Impl
             return _petRepository.ReadPets().ToList();
         }
 
+        /// <summary>
+        /// Compares all the pets in the shop to the specific type chosen by the user, and returns all matches
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>returns all pets that matches the selected type</returns>
         public List<Pet> GetPetsByType(string type)
         {
             return _petRepository.ReadPets().Where(pet => pet.Type.Equals(type, StringComparison.InvariantCultureIgnoreCase)).ToList();
         }
 
+        /// <summary>
+        /// Returns the pets by price either ascending or descending 
+        /// </summary>
+        /// <param name="ascending"></param>
+        /// <returns>Returns the pets by price either ascending or descending</returns>
         public List<Pet> GetsPetsByPrice(bool ascending)
         {
             if (ascending)
@@ -57,6 +67,10 @@ namespace PetShop.Core.ApplicationService.Impl
             }
         }
 
+        /// <summary>
+        /// Returns the distinct types of pets in the petshop
+        /// </summary>
+        /// <returns>Available types of pets in the inventory</returns>
         public List<string> GetTypesOfPets()
         {
             return _petRepository.ReadPets().Select(pet => pet.Type).Distinct().ToList();

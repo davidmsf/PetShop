@@ -97,11 +97,11 @@ namespace ConsoleApp3
                                         + " - "
                                         + pet.Color
                                         + " - "
-                                        + pet.PreviousOwner
+                                        +"Previous owner: "+pet.PreviousOwner
                                         + " - "
-                                        + pet.BirthDate
+                                        +"Birth date: "+pet.BirthDate.ToString("dd/MM/yyyy")
                                         + " - "
-                                        + pet.SoldDate);
+                                        +"Sold date: "+pet.SoldDate.ToString("dd/MM/yyyy"));
         }
 
 
@@ -186,10 +186,12 @@ namespace ConsoleApp3
                     property = "Price";
                     break;
                 case 5:
+                    Console.WriteLine("Write the sold date of the pet(dd/mm/yyyy):");
                     WriteSoldDate(pet);
                     property = "SoldDate";
                     break;
                 case 6:
+                    Console.WriteLine("Write the birth date of the pet(dd/mm/yyyy):");
                     WriteBirthDate(pet);
                     property = "BirthDate";
                     break;
@@ -293,9 +295,9 @@ namespace ConsoleApp3
                               + " - "
                               +"Previous owner:"+pet.PreviousOwner
                               + " - "
-                              +"Birthdate:"+pet.BirthDate
+                              +"Birthdate:"+pet.BirthDate.ToString("dd/MM/yyyy")
                               + " - "
-                              +"Solddate:"+pet.SoldDate
+                              +"Solddate:"+pet.SoldDate.ToString("dd/MM/yyyy")
                               + " - "
                               +"Price:"+pet.Price);
             Console.WriteLine();
@@ -393,7 +395,11 @@ namespace ConsoleApp3
                 Console.WriteLine((i+1)+". "+ menuItems[i]);
             }
 
-            int selection = int.Parse(Console.ReadLine());
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection))
+            {
+                Console.WriteLine("Select a number:");
+            }
             Console.Clear();
             return selection;
         }
@@ -421,7 +427,11 @@ namespace ConsoleApp3
         private Pet GetPetById()
         {
             Console.WriteLine("Please select the pet by its id:");
-            int id = int.Parse(Console.ReadLine());
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Select a number:");
+            }
             var pet = _petService.GetPetById(id);
             return pet;
         }
@@ -429,7 +439,11 @@ namespace ConsoleApp3
         private void Delete()
         {
             Console.WriteLine("Please select the pet to delete by its id:");
-            int id = int.Parse(Console.ReadLine());
+            int id;
+            while (!int.TryParse(Console.ReadLine(), out id))
+            {
+                Console.WriteLine("Select a number:");
+            }
             _petService.Delete(id);
             var pet = _petService.GetPetById(id);
             if (pet == null)
