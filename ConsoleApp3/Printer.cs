@@ -431,6 +431,12 @@ namespace ConsoleApp3
             Console.WriteLine("Please select the pet to delete by its id:");
             int id = int.Parse(Console.ReadLine());
             _petService.Delete(id);
+            var pet = _petService.GetPetById(id);
+            if (pet == null)
+            {
+                Console.WriteLine("The pet was deleted from the system");
+            }
+           
         }
     }
 }
