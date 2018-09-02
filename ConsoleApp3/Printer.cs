@@ -399,7 +399,7 @@ namespace ConsoleApp3
         }
 
         /// <summary>
-        /// 
+        /// This code is used throughout this class, in order for the user to decide when to return to the main menu 
         /// </summary>
         private void GoBack()
         {
