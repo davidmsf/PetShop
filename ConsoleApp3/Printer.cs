@@ -206,7 +206,11 @@ namespace ConsoleApp3
                 Console.WriteLine("The pet has been updated");
             }
         }
-
+        /// <summary>
+        /// Since this piece of code, which sets the solddate of the given pet by user input,
+        /// is used several times, it is placed in a separate method
+        /// </summary>
+        /// <param name="pet"></param>
         private static void WriteSoldDate(Pet pet)
         {
             DateTime soldDate;
@@ -220,7 +224,8 @@ namespace ConsoleApp3
         }
 
         /// <summary>
-        /// 
+        /// Since this piece of code, which sets the birthdate of the given pet by user input,
+        /// is used several times, it is placed in a separate method
         /// </summary>
         /// <param name="pet"></param>
         private static void WriteBirthDate(Pet pet)
@@ -235,6 +240,10 @@ namespace ConsoleApp3
             pet.BirthDate = birthDate;
         }
 
+        /// <summary>
+        /// The user can select the type of pet they wish to look up, and get a list of all the pets of the choosen type,
+        /// by using either a menu or writing the type themselves 
+        /// </summary>
         private void SearchPetsByType()
         {
             Console.WriteLine("Press 1 if you want to select the type through a menu");
@@ -267,6 +276,11 @@ namespace ConsoleApp3
         
         }
 
+        /// <summary>
+        /// Since pets are printed several places in the program it is isolated in a method,
+        /// so it takes the specific pet and prints all its properties 
+        /// </summary>
+        /// <param name="pet"></param>
         private static void PrintPet(Pet pet)
         {
             Console.WriteLine("Id:"+pet.Id
@@ -287,6 +301,12 @@ namespace ConsoleApp3
             Console.WriteLine();
         }
 
+        /// <summary>
+        /// This method is used in the SearchPetsByType() method,
+        /// and takes the users input for which type of animal they wish to see an inventory of
+        /// </summary>
+        /// <param name="typesOfPets"></param>
+        /// <returns></returns>
         private List<Pet> TypeSearchThroughMenu(List<string> typesOfPets)
         {
             List<Pet> pets;
@@ -304,6 +324,11 @@ namespace ConsoleApp3
             return pets;
         }
 
+        /// <summary>
+        /// This method is used in the SearchPetsByType() method,
+        /// it prints the types of animals in the petshop
+        /// </summary>
+        /// <param name="typesOfPets"></param>
         private static void PrintTypes(List<string> typesOfPets)
         {
 
@@ -313,11 +338,17 @@ namespace ConsoleApp3
             }
         }
 
+        /// <summary>
+        /// This method is used in the SearchPetsByType() method,
+        /// it fetches the different types of animals available in the petshop
+        /// </summary>
+        /// <returns></returns>
         private List<String> GetTypes()
         {
             List<string> types = _petService.GetTypesOfPets();
             return types;
         }
+
 
         private void CreatePet()
         {
@@ -367,6 +398,9 @@ namespace ConsoleApp3
             return selection;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         private void GoBack()
         {
 
