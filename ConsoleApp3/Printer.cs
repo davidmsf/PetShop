@@ -2,7 +2,6 @@
 using PetShop.Core.Entity;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ConsoleApp3
 {
@@ -19,9 +18,16 @@ namespace ConsoleApp3
         private void MainMenu()
         {
             int selection = -1;
-            string[] menuItems = { "Show all pets", "Add", "Update", "Delete", "Search by type", "Exit" };
+            string[] menuItems = { "Show all pets",
+                                    "Add",
+                                    "Update",
+                                    "Delete",
+                                    "Search by type",
+                                    "Sort pets by price",
+                                    "Show 5 cheapest available Pets",
+                                    "Exit" };
 
-            while (selection != 6)
+            while (selection != 8)
             {
                 switch (selection)
                 {
@@ -45,9 +51,15 @@ namespace ConsoleApp3
                         GoBack();
                         break;
                     case 5:
-                        List<string> typesOfPets = GetTypes();
-                        PrintTypes(typesOfPets);
-                        SearchPetsByType(typesOfPets);
+                        SearchPetsByType();
+                        GoBack();
+                        break;
+                    case 6:
+                        SortByPrice();
+                        GoBack();
+                        break;
+                    case 7:
+                        Show5CheapestPets();
                         GoBack();
                         break;
                     default:
@@ -56,6 +68,63 @@ namespace ConsoleApp3
 
                 selection = ShowMainMenu(menuItems);
             }
+        }
+
+        private void Show5CheapestPets()
+        {
+            List<Pet> cheapestPets = _petService.Show5CheapestPets();
+
+            foreach (var pet in cheapestPets)
+            {
+                PrintPetByPrice(pet);
+            }
+        }
+
+        private static void PrintPetByPrice(Pet pet)
+        {
+            Console.WriteLine("Price: " + pet.Price
+                                        + " - " + pet.Id
+                                        + " - "
+                                        + pet.Name
+                                        + " - "
+                                        + pet.Type
+                                        + " - "
+                                        + pet.Color
+                                        + " - "
+                                        + pet.PreviousOwner
+                                        + " - "
+                                        + pet.BirthDate
+                                        + " - "
+                                        + pet.SoldDate);
+        }
+
+        private void SortByPrice()
+        {
+            Console.WriteLine("1. Order by ascending");
+            Console.WriteLine("2. Order by descending");
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection) 
+                   || selection != 1 && selection != 2)
+            {
+                Console.WriteLine("Select a number:");
+            }
+
+            Boolean ascending;
+            if (selection == 1)
+            {
+                ascending = true;
+            }
+            else
+            {
+                ascending = false;
+            }
+            List<Pet> sortedPets = _petService.GetsPetsByPrice(ascending);
+
+            foreach (var pet in sortedPets)
+            {
+                PrintPetByPrice(pet);
+            } 
+
         }
 
         private void UpdatePet(Pet pet)
@@ -68,9 +137,14 @@ namespace ConsoleApp3
             Console.WriteLine("5. Sold date - " + pet.SoldDate);
             Console.WriteLine("6. Bith date - " + pet.BirthDate);
             Console.WriteLine("7. Color - " + pet.Color);
-                            
 
-            int selection = int.Parse(Console.ReadLine());
+            int selection;
+            Console.WriteLine("Select the specific pet info you wish to edit by entering the associated number:");
+            while (!int.TryParse(Console.ReadLine(), out selection))
+            {
+                Console.WriteLine("Select a number:");
+            }
+            
             string property = "";
             switch (selection)
             {
@@ -100,21 +174,11 @@ namespace ConsoleApp3
                     property = "Price";
                     break;
                 case 5:
-                    DateTime soldDate;
-                    while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
-                    {
-                        Console.WriteLine("Write the sold date of the pet(dd/MM/yyyy):");
-                    }
-                    pet.SoldDate = soldDate;
+                    WriteSoldDate(pet);
                     property = "SoldDate";
                     break;
                 case 6:
-                    DateTime birthDate;
-                    while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
-                    {
-                        Console.WriteLine("Write the birth date of the pet(dd/MM/yyyy):");
-                    }
-                    pet.BirthDate = birthDate;
+                    WriteBirthDate(pet);
                     property = "BirthDate";
                     break;
                 case 7:
@@ -130,22 +194,102 @@ namespace ConsoleApp3
             }
         }
 
-        private void SearchPetsByType(List<string> typesOfPets)
+        private static void WriteSoldDate(Pet pet)
         {
-            Console.WriteLine("Select the type you want to search");
-            int.TryParse(Console.ReadLine(), out int typeNr);
-            if(typeNr < typesOfPets.Count && typeNr >= 0)
+            DateTime soldDate;
+            while (!DateTime.TryParseExact(Console.ReadLine(),
+                "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
             {
-                List<Pet> pets = _petService.GetPetsByType(typesOfPets[typeNr]);
-                foreach (var pet in pets)
-                {
-                    Console.WriteLine(pet.Name);
-                }
+                Console.WriteLine("Write the sold date of the pet(dd/mm/yyyy):");
             }
+
+            pet.SoldDate = soldDate;
+        }
+
+        private static void WriteBirthDate(Pet pet)
+        {
+            DateTime birthDate;
+            while (!DateTime.TryParseExact(Console.ReadLine(),
+                "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
+            {
+                Console.WriteLine("Write the birth date of the pet(dd/mm/yyyy):");
+            }
+
+            pet.BirthDate = birthDate;
+        }
+
+        private void SearchPetsByType()
+        {
+            Console.WriteLine("Press 1 if you want to select the type through a menu");
+            Console.WriteLine("Or press 2 if you want to select the type through a search");
+            int selection;
+            while (!int.TryParse(Console.ReadLine(), out selection)
+                   || selection != 1 && selection != 2)
+            {
+                Console.WriteLine("Select a number:");
+            }
+
+            List<Pet> pets;
+            if (selection == 1)
+            {
+                List<string> typesOfPets = GetTypes();
+                PrintTypes(typesOfPets);
+                pets = TypeSearchThroughMenu(typesOfPets);
+            }
+            else
+            {
+                Console.WriteLine("Write the type you want to search:");
+                string searchWord = Console.ReadLine();
+                pets = _petService.GetPetsByType(searchWord);
+            }
+
+            foreach (var pet in pets)
+            {
+                PrintPet(pet);
+            }
+        
+        }
+
+        private static void PrintPet(Pet pet)
+        {
+            Console.WriteLine("Id:"+pet.Id
+                              + " - "
+                              +"Name: "+pet.Name
+                              + " - "
+                              +"Type:"+pet.Type
+                              + " - "
+                              +"Color:"+pet.Color
+                              + " - "
+                              +"Previous owner:"+pet.PreviousOwner
+                              + " - "
+                              +"Birthdate:"+pet.BirthDate
+                              + " - "
+                              +"Solddate:"+pet.SoldDate
+                              + " - "
+                              +"Price:"+pet.Price);
+            Console.WriteLine();
+        }
+
+        private List<Pet> TypeSearchThroughMenu(List<string> typesOfPets)
+        {
+            List<Pet> pets;
+            int typeNr;
+            Console.WriteLine("Select the type you want to search:");
+
+            while (!int.TryParse(Console.ReadLine(), out typeNr)
+                   || typeNr >= typesOfPets.Count
+                   || typeNr < 0)
+            {
+                Console.WriteLine("Select the type you want to search:");
+            }
+
+            pets = _petService.GetPetsByType(typesOfPets[typeNr]);
+            return pets;
         }
 
         private static void PrintTypes(List<string> typesOfPets)
         {
+
             for(int i = 0; i < typesOfPets.Count; i++)
             {
                 Console.WriteLine(i+" - "+ typesOfPets[i]);
@@ -181,21 +325,11 @@ namespace ConsoleApp3
             }
             pet.Price = price;
 
-            DateTime soldDate;
-            Console.WriteLine("Write the sold date of the pet(dd/MM/yyyy):");
-            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out soldDate))
-            {
-                Console.WriteLine("Write the sold date of the pet:");
-            }
-            pet.SoldDate = soldDate;
+            Console.WriteLine("Write the sold date of the pet(dd/mm/yyyy):");
+            WriteSoldDate(pet);
 
-            DateTime birthDate;
-            Console.WriteLine("Write the birth date of the pet(dd/MM/yyyy):");
-            while (!DateTime.TryParseExact(Console.ReadLine(), "dd/MM/yyyy", null, System.Globalization.DateTimeStyles.None, out birthDate))
-            {
-                Console.WriteLine("Write the birth date of the pet:");
-            }
-            pet.BirthDate = birthDate;
+            Console.WriteLine("Write the birth date of the pet(dd/mm/yyyy):");
+            WriteBirthDate(pet);
             
             var newPet = _petService.CreatePet(pet);
             if (newPet.Id > 0)
@@ -229,7 +363,7 @@ namespace ConsoleApp3
         {
             foreach(var pet in _petService.GetPets())
             {
-                Console.WriteLine(pet.Id+" - "+pet.Name);
+                PrintPet(pet);
             }
         }
 

@@ -42,12 +42,29 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public List<Pet> GetPetsByType(string type)
         {
-            return _petRepository.ReadPets().Where(pet => pet.Type.Equals(type)).ToList();
+            return _petRepository.ReadPets().Where(pet => pet.Type.Equals(type, StringComparison.InvariantCultureIgnoreCase)).ToList();
+        }
+
+        public List<Pet> GetsPetsByPrice(bool ascending)
+        {
+            if (ascending)
+            {
+                return _petRepository.ReadPets().OrderBy(pet => pet.Price).ToList();
+            }
+            else
+            {
+                return _petRepository.ReadPets().OrderByDescending(pet => pet.Price).ToList();
+            }
         }
 
         public List<string> GetTypesOfPets()
         {
             return _petRepository.ReadPets().Select(pet => pet.Type).Distinct().ToList();
+        }
+
+        public List<Pet> Show5CheapestPets()
+        {
+            return _petRepository.ReadPets().OrderBy(pet => pet.Price).Take(5).ToList();
         }
 
         public Pet UpdatePet(Pet pet, string property)
