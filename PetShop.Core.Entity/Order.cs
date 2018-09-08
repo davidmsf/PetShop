@@ -6,6 +6,7 @@ namespace PetShop.Core.Entity
 {
     class Order
     {
-        private int id;
+        public int Id { get; set; }
+        public int CustomerId { get; set; }
     }
 }

@@ -4,20 +4,14 @@ using System.Text;
 
 namespace PetShop.Core.Entity
 {
-    class Owner
+    public class Owner
     {
-        private int id;
-        private string firstName;
-        private string lastName;
-        private string address;
-        private string phoneNumber;
-        private string email;
+        public int Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Address { get; set; }
+        public string PhoneNumber { get; set; }
+        public string Email { get; set; }
 
-        public int Id { get => id; set => id = value; }
-        public string FirstName { get => firstName; set => firstName = value; }
-        public string LastName { get => lastName; set => lastName = value; }
-        public string Address { get => address; set => address = value; }
-        public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
-        public string Email { get => email; set => email = value; }
     }
 }

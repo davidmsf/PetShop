@@ -6,22 +6,14 @@ namespace PetShop.Core.Entity
 {
     public class Pet
     {
-        private int id;
-        private string name;
-        private string type;
-        private DateTime birthDate;
-        private DateTime soldDate;
-        private string color;
-        private string previousOwner;
-        private double price;
-
-        public int Id { get => id; set => id = value; }
-        public string Name { get => name; set => name = value; }
-        public string Type { get => type; set => type = value; }
-        public DateTime BirthDate { get => birthDate; set => birthDate = value; }
-        public DateTime SoldDate { get => soldDate; set => soldDate = value; }
-        public string Color { get => color; set => color = value; }
-        public string PreviousOwner { get => previousOwner; set => previousOwner = value; }
-        public double Price { get => price; set => price = value; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Type { get; set; }
+        public DateTime BirthDate { get; set; }
+        public DateTime SoldDate { get; set; }
+        public string color { get; set; }
+        public string PreviousOwner { get; set; }
+        public double Price { get; set; }
+        public Owner Owner { get; set; }
     }
 }
