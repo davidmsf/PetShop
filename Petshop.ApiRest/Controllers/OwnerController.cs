@@ -62,7 +62,14 @@ namespace Petshop.ApiRest.Controllers
         [HttpPut("{id}")]
         public ActionResult<Owner> Put(int id, [FromBody] Owner owner)
         {
-             return _ownerService.Update(owner);
+            if (id == owner.Id)
+            {
+                return _ownerService.Update(owner);
+            }
+            else
+            {
+                return BadRequest("The GET id does not match the object you are trying to update");
+            }
         }
 
         // DELETE: api/ApiWithActions/5
