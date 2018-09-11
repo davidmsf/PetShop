@@ -30,7 +30,14 @@ namespace Petshop.ApiRest.Controllers
         [HttpGet("{id}")]
         public ActionResult<Pet> Get(int id)
         {
-            return _petService.GetPetById(id);
+            if (id > 0)
+            {
+                return _petService.GetPetById(id);
+            }
+            else
+            {
+                return BadRequest("The ID is not above 0");
+            }
         }
 
         // POST api/pet
@@ -54,7 +61,15 @@ namespace Petshop.ApiRest.Controllers
         [HttpPut("{id}")]
         public ActionResult<Pet> Put(int id, [FromBody] Pet pet)
         {
-            return _petService.UpdatePet(pet);
+            if (id == pet.Id)
+            {
+                return _petService.UpdatePet(pet);
+            }
+            else
+            {
+                return BadRequest("The GET id does not match the object you are trying to update");
+            }
+            
 
         }
 
