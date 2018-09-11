@@ -81,9 +81,9 @@ namespace PetShop.Core.ApplicationService.Impl
             return _petRepository.ReadPets().OrderBy(pet => pet.Price).Take(5).ToList();
         }
 
-        public Pet UpdatePet(Pet pet, string property)
+        public Pet UpdatePet(Pet pet)
         {
-            return _petRepository.UpdatePet(pet, property);
+            return _petRepository.UpdatePet(pet);
         }
     }
 }

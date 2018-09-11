@@ -15,7 +15,7 @@ namespace PetShop.Core.ApplicationService
         Pet CreatePet(Pet pet);
         List<string> GetTypesOfPets();
         List<Pet> GetPetsByType(string type);
-        Pet UpdatePet(Pet pet, string property);
+        Pet UpdatePet(Pet pet);
         List<Pet> GetsPetsByPrice(bool ascending);
         List<Pet> Show5CheapestPets();
     }

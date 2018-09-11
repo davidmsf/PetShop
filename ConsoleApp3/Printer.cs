@@ -157,23 +157,23 @@ namespace ConsoleApp3
                 Console.WriteLine("Select a number:");
             }
             
-            string property = "";
+
             switch (selection)
             {
                 case 1:
                     Console.WriteLine("Write the name of the pet:");
                     pet.Name = Console.ReadLine();
-                    property = "Name";
+ 
                     break;
                 case 2:
                     Console.WriteLine("Write the type of the pet:");
                     pet.Type = Console.ReadLine();
-                    property = "Type";
+
                     break;
                 case 3:
                     Console.WriteLine("Write the previous owner of the pet:");
                     pet.PreviousOwner = Console.ReadLine();
-                    property = "PreviousOwner";
+
                     break;
                 case 4:
                     double price;
@@ -183,26 +183,26 @@ namespace ConsoleApp3
                         Console.WriteLine("Write the price of the pet:");
                     }
                     pet.Price = price;
-                    property = "Price";
+
                     break;
                 case 5:
                     Console.WriteLine("Write the sold date of the pet(dd/mm/yyyy):");
                     WriteSoldDate(pet);
-                    property = "SoldDate";
+  
                     break;
                 case 6:
                     Console.WriteLine("Write the birth date of the pet(dd/mm/yyyy):");
                     WriteBirthDate(pet);
-                    property = "BirthDate";
+
                     break;
                 case 7:
                     Console.WriteLine("Write the color of the pet:");
                     pet.Color = Console.ReadLine();
-                    property = "Color";
+
                     break;
             }
 
-            var updatedPet = _petService.UpdatePet(pet, property);
+            var updatedPet = _petService.UpdatePet(pet);
             if (updatedPet.Id > 0)
             {
                 Console.WriteLine("The pet has been updated");

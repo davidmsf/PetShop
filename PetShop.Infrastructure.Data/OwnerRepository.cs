@@ -2,6 +2,7 @@
 using PetShop.Core.Entity;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace PetShop.Infrastructure.Data
@@ -10,27 +11,38 @@ namespace PetShop.Infrastructure.Data
     {
         public Owner Create(Owner owner)
         {
-            throw new NotImplementedException();
+            owner.Id = FakeDB.ownerId++;
+            var owners = FakeDB.owners.ToList();
+            owners.Add(owner);
+            FakeDB.owners = owners;
+            return owner;
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var owners = FakeDB.owners.ToList();
+            var ownerToDelete = owners.FirstOrDefault(owner => owner.Id == id);
+            owners.Remove(ownerToDelete);
+            FakeDB.owners = owners;
         }
 
         public Owner GetOwnerById(int id)
         {
-            throw new NotImplementedException();
+            var selectedOwner = FakeDB.owners.FirstOrDefault(owner => owner.Id == id);
+            return selectedOwner;
         }
 
         public IEnumerable<Owner> ReadOwners()
         {
-            throw new NotImplementedException();
+            return FakeDB.owners;
         }
 
-        public Owner Update(Owner owner)
+        public Owner Update(Owner updatedOwner)
         {
-            throw new NotImplementedException();
+            var owners = FakeDB.owners.ToList();
+            var petToUpdate = owners.FirstOrDefault(owner => owner.Id == updatedOwner.Id);
+            petToUpdate = updatedOwner;
+            return petToUpdate;
         }
     }
 }

@@ -12,7 +12,7 @@ namespace PetShop.Infrastructure.Data
     {
         public Pet CreatePet(Pet pet)
         {
-            pet.Id = FakeDB.id++;
+            pet.Id = FakeDB.petId++;
             var pets = FakeDB.pets.ToList();
             pets.Add(pet);
             FakeDB.pets = pets;
@@ -38,20 +38,10 @@ namespace PetShop.Infrastructure.Data
             return FakeDB.pets;
         }
 
-        public Pet UpdatePet(Pet updatedPet, string property)
+        public Pet UpdatePet(Pet updatedPet)
         {
-            var pet = GetPetById(updatedPet.Id);
-            if (pet != null)
-            {
-                var prop = pet.GetType().GetProperty(property);
-                if (prop != null)
-                {
-                    prop.SetValue(pet, updatedPet.GetType().GetProperty(property).GetValue(updatedPet));
-                    
-                }
-                return pet;
-            }
-            return null;
+            
+            return updatedPet;
         }
     }
 }

@@ -15,6 +15,6 @@ namespace PetShop.Core.DomainService
 
         Pet CreatePet(Pet pet);
 
-        Pet UpdatePet(Pet pet, string property);
+        Pet UpdatePet(Pet pet);
     }
 }
