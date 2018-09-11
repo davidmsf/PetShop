@@ -39,10 +39,21 @@ namespace PetShop.Infrastructure.Data
 
         public Owner Update(Owner updatedOwner)
         {
-            var owners = FakeDB.owners.ToList();
-            var ownerToUpdate = owners.FirstOrDefault(owner => owner.Id == updatedOwner.Id);
-            ownerToUpdate = updatedOwner;
-            return ownerToUpdate;
+            var ownerFromDB = GetOwnerById(updatedOwner.Id);
+            if (ownerFromDB == null)
+            {
+                return null;
+            }
+            else
+            {
+                ownerFromDB.FirstName = updatedOwner.FirstName;
+                ownerFromDB.LastName = updatedOwner.LastName;
+                ownerFromDB.Email = updatedOwner.Email;
+                ownerFromDB.PhoneNumber = updatedOwner.PhoneNumber;
+                ownerFromDB.Address = updatedOwner.Address;
+                return ownerFromDB;
+
+            }
         }
     }
 }

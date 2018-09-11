@@ -40,10 +40,25 @@ namespace PetShop.Infrastructure.Data
 
         public Pet UpdatePet(Pet updatedPet)
         {
-            var pets = FakeDB.pets.ToList();
-            var petToUpdate = pets.FirstOrDefault(pet => pet.Id == updatedPet.Id);
-            petToUpdate = updatedPet;
-            return petToUpdate;
+            var petFromDB = GetPetById(updatedPet.Id);
+            if (petFromDB == null)
+            {
+                return null;
+            }
+            else
+            {
+                petFromDB.Name = updatedPet.Name;
+                petFromDB.Owner = updatedPet.Owner;
+                petFromDB.PreviousOwner = updatedPet.PreviousOwner;
+                petFromDB.Price = updatedPet.Price;
+                petFromDB.SoldDate = updatedPet.SoldDate;
+                petFromDB.Type = updatedPet.Type;
+                petFromDB.Color = updatedPet.Color;
+                petFromDB.BirthDate = updatedPet.BirthDate;
+                return petFromDB;
+
+            }
+            
         }
     }
 }

@@ -39,10 +39,7 @@ namespace PetShop.Infrastructure.Data
 
         public Order Update(Order updatedOrder)
         {
-            var orders = FakeDB.orders.ToList();
-            var orderToUpdate = orders.FirstOrDefault(order => order.Id == updatedOrder.Id);
-            orderToUpdate = updatedOrder;
-            return orderToUpdate;
+            return updatedOrder;
         }
     }
 }

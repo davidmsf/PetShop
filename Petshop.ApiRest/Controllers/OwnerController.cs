@@ -31,7 +31,14 @@ namespace Petshop.ApiRest.Controllers
         [HttpGet("{id}")]
         public ActionResult<Owner> Get(int id)
         {
-            return _ownerService.GetOwnerById(id);
+            if (id > 0)
+            {
+                return _ownerService.GetOwnerById(id);
+            }
+            else
+            {
+                return BadRequest("id is below 1");
+            }
         }
 
         // POST: api/Owner
@@ -55,14 +62,7 @@ namespace Petshop.ApiRest.Controllers
         [HttpPut("{id}")]
         public ActionResult<Owner> Put(int id, [FromBody] Owner owner)
         {
-            if(id == owner.Id)
-            {
-                return Ok(_ownerService.Update(owner));
-            }
-            else
-            {
-                return BadRequest("The given owner id does not match the owner object id");
-            }
+             return _ownerService.Update(owner);
         }
 
         // DELETE: api/ApiWithActions/5
