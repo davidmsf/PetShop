@@ -40,8 +40,10 @@ namespace PetShop.Infrastructure.Data
 
         public Pet UpdatePet(Pet updatedPet)
         {
-            
-            return updatedPet;
+            var pets = FakeDB.pets.ToList();
+            var petToUpdate = pets.FirstOrDefault(pet => pet.Id == updatedPet.Id);
+            petToUpdate = updatedPet;
+            return petToUpdate;
         }
     }
 }
