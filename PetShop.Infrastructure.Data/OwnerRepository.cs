@@ -51,6 +51,7 @@ namespace PetShop.Infrastructure.Data
                 ownerFromDB.Email = updatedOwner.Email;
                 ownerFromDB.PhoneNumber = updatedOwner.PhoneNumber;
                 ownerFromDB.Address = updatedOwner.Address;
+                ownerFromDB.Pets = updatedOwner.Pets;
                 return ownerFromDB;
 
             }
