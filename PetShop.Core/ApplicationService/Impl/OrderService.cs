@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
@@ -27,22 +28,22 @@ namespace PetShop.Core.ApplicationService.Impl
 
         public List<Order> GetAllOrders()
         {
-            throw new NotImplementedException();
+            return _orderRepository.ReadOrders().ToList();
         }
 
         public Order GetNewOrder()
         {
-            throw new NotImplementedException();
+            return new Order();
         }
 
         public Order GetOrderById(int id)
         {
-            throw new NotImplementedException();
+            return _orderRepository.GetOrderById(id);
         }
 
         public Order Update(Order order)
         {
-            throw new NotImplementedException();
+            return _orderRepository.Update(order);
         }
     }
 }

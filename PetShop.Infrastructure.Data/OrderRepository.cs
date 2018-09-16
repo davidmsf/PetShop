@@ -39,7 +39,20 @@ namespace PetShop.Infrastructure.Data
 
         public Order Update(Order updatedOrder)
         {
-            return updatedOrder;
+
+            var orderFromDB = GetOrderById(updatedOrder.Id);
+            if (orderFromDB == null)
+            {
+                return null;
+            }
+            else
+            {
+                orderFromDB.DeliveryDate = updatedOrder.DeliveryDate;
+                orderFromDB.Customer = updatedOrder.Customer;
+                orderFromDB.OrderDate = updatedOrder.OrderDate;
+                orderFromDB.Pets = updatedOrder.Pets;
+                return orderFromDB;
+
+            }
         }
-    }
 }
