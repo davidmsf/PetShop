@@ -29,8 +29,9 @@ namespace PetShop.Infrastructure.Data
                 SoldDate = new DateTime(2008, 12, 15),
                 Color = "grey",
                 PreviousOwner = "homeless/streetcat",
-                Price = 5000
-    };
+                Price = 5000,
+                Owner = new Owner() { Id = 1 }
+            };
             Pet dog = new Pet()
             {
                 Id = petId++,
@@ -40,7 +41,8 @@ namespace PetShop.Infrastructure.Data
                 SoldDate = new DateTime(2007, 10, 15),
                 Color = "Golden",
                 PreviousOwner = "David Fabricius",
-                Price = 50
+                Price = 50,
+                Owner = new Owner() { Id = 1 },
             };
 
             Pet turtle = new Pet()
@@ -52,7 +54,8 @@ namespace PetShop.Infrastructure.Data
                 SoldDate = new DateTime(2017, 10, 15),
                 Color = "Green",
                 PreviousOwner = "Splinter",
-                Price = 200
+                Price = 200,
+                Owner = new Owner() { Id = 1 },
             };
 
             Pet Lobster = new Pet()
@@ -64,7 +67,8 @@ namespace PetShop.Infrastructure.Data
                 SoldDate = new DateTime(2017, 10, 15),
                 Color = "Brown",
                 PreviousOwner = "The ocean",
-                Price = 400
+                Price = 400,
+                Owner = new Owner() { Id = 2 },
             };
 
             Pet Dog = new Pet()
@@ -76,7 +80,8 @@ namespace PetShop.Infrastructure.Data
                 SoldDate = new DateTime(2017, 01, 15),
                 Color = "Brown",
                 PreviousOwner = "SomeBody",
-                Price = 450
+                Price = 450,
+                Owner = new Owner() { Id = 2 }
             };
 
             Pet Cat = new Pet()
@@ -88,7 +93,8 @@ namespace PetShop.Infrastructure.Data
                 SoldDate = new DateTime(2017, 01, 15),
                 Color = "Black",
                 PreviousOwner = "SomeBody",
-                Price = 600
+                Price = 600,
+                Owner = new Owner() { Id = 2 }
             };
 
             pets = new List<Pet> { cat, dog, turtle, Lobster, Dog, Cat };
@@ -102,7 +108,8 @@ namespace PetShop.Infrastructure.Data
                 LastName = "Poulson",
                 Address = "bobstreet",
                 Email = "bob@bobs.com",
-                PhoneNumber = "22334455"
+                PhoneNumber = "22334455",
+                Pets = new List<Pet> { new Pet() { Id = 1 }, new Pet() { Id = 2 }, new Pet() { Id = 3 } }
             };
 
             Owner owner2 = new Owner()
@@ -112,7 +119,8 @@ namespace PetShop.Infrastructure.Data
                 LastName = "Poulson",
                 Address = "paulstreet",
                 Email = "paul@bobs.com",
-                PhoneNumber = "22334455"
+                PhoneNumber = "22334455",
+                Pets = new List<Pet> { new Pet() { Id = 4 }, new Pet() { Id = 5 }, new Pet() { Id = 6 } }
             };
 
             owners = new List<Owner> { owner, owner2 };
