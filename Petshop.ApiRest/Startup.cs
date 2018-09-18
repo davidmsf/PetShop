@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -13,6 +14,7 @@ using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Impl;
 using PetShop.Core.DomainService;
 using PetShop.Infrastructure.Data;
+using PetShop.Infrastructure.Data.Repositories;
 
 namespace Petshop.ApiRest
 {
@@ -28,7 +30,16 @@ namespace Petshop.ApiRest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            FakeDB.InitData();
+            /*
+            services.AddDbContext<PetShopAppContext>(
+                opt => opt.UseInMemoryDatabase("db")
+                ); 
+                */
+            services.AddDbContext<PetShopAppContext>(
+                opt => opt.UseSqlite("Data Source=PetShop.db")
+            );
+
+            //FakeDB.InitData();
             services.AddScoped<IPetService, PetService>();
             services.AddScoped<IPetRepository, PetRepository>();
 
@@ -44,6 +55,12 @@ namespace Petshop.ApiRest
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                using (var scope = app.ApplicationServices.CreateScope())
+                {
+                    var ctx = scope.ServiceProvider.GetService<PetShopAppContext>();
+                    ctx.Database.EnsureDeleted();
+                    ctx.Database.EnsureCreated();
+                }
             }
 
             app.UseMvc();

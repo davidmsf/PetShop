@@ -5,66 +5,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PetShop.Infrastructure.Data
+namespace PetShop.Infrastructure.Data.Repositories
 {
     public class OwnerRepository : IOwnerRepository
     {
+        private readonly PetShopAppContext _ctx;
+
+        public OwnerRepository(PetShopAppContext ctx)
+        {
+            _ctx = ctx;
+        }
+
         public Owner Create(Owner owner)
-        {                                   
-            owner.Id = FakeDB.ownerId++;
-            var owners = FakeDB.owners.ToList();
-            owners.Add(owner);
-            FakeDB.owners = owners;
-            return owner;
+        {
+            var savedOwner = _ctx.Owners.Add(owner).Entity;
+            _ctx.SaveChanges();
+            return savedOwner;
         }
 
         public void Delete(int id)
         {
-            var owners = FakeDB.owners.ToList();
-            var ownerToDelete = owners.FirstOrDefault(owner => owner.Id == id);
-            owners.Remove(ownerToDelete);
-            FakeDB.owners = owners;
+            throw new NotImplementedException();
         }
 
         public Owner GetOwnerById(int id)
         {
-            var selectedOwner = FakeDB.owners.Select(owner => new Owner()
-            {
-                Id = owner.Id,
-                FirstName = owner.FirstName,
-                LastName = owner.LastName,
-                Address = owner.Address,
-                Email = owner.Email,
-                PhoneNumber = owner.PhoneNumber,
-
-            }).FirstOrDefault(owner => owner.Id == id);
-
-            return selectedOwner;
+            return _ctx.Owners.FirstOrDefault(owner => owner.Id == id);
         }
 
         public IEnumerable<Owner> ReadOwners()
         {
-            return FakeDB.owners;
+            return _ctx.Owners;
         }
 
-        public Owner Update(Owner updatedOwner)
+        public Owner Update(Owner owner)
         {
-            var ownerFromDB = GetOwnerById(updatedOwner.Id);
-            if (ownerFromDB == null)
-            {
-                return null;
-            }
-            else
-            {
-                ownerFromDB.FirstName = updatedOwner.FirstName;
-                ownerFromDB.LastName = updatedOwner.LastName;
-                ownerFromDB.Email = updatedOwner.Email;
-                ownerFromDB.PhoneNumber = updatedOwner.PhoneNumber;
-                ownerFromDB.Address = updatedOwner.Address;
-                ownerFromDB.Pets = updatedOwner.Pets;
-                return ownerFromDB;
-
-            }
+            throw new NotImplementedException();
         }
     }
 }

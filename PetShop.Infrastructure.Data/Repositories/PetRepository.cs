@@ -3,62 +3,44 @@ using PetShop.Core.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 
-namespace PetShop.Infrastructure.Data
+namespace PetShop.Infrastructure.Data.Repositories
 {
     public class PetRepository : IPetRepository
     {
+        private readonly PetShopAppContext _ctx;
+
+        public PetRepository(PetShopAppContext ctx)
+        {
+            _ctx = ctx;
+        }
+
         public Pet CreatePet(Pet pet)
         {
-            pet.Id = FakeDB.petId++;
-            var pets = FakeDB.pets.ToList();
-            pets.Add(pet);
-            FakeDB.pets = pets;
-            return pet;
+            var savedPet = _ctx.Pets.Add(pet).Entity;
+            _ctx.SaveChanges();
+            return savedPet;
         }
 
         public void Delete(int id)
         {
-            var pets = FakeDB.pets.ToList();
-            var petToDelete = pets.FirstOrDefault(pet => pet.Id == id);
-            pets.Remove(petToDelete);
-            FakeDB.pets = pets;
+            throw new NotImplementedException();
         }
 
         public Pet GetPetById(int id)
         {
-            var selectedPet = FakeDB.pets.FirstOrDefault(pet => pet.Id == id);
-            return selectedPet;
+            return _ctx.Pets.FirstOrDefault(owner => owner.Id == id);
         }
 
         public IEnumerable<Pet> ReadPets()
         {
-            return FakeDB.pets;
+            return _ctx.Pets;
         }
 
-        public Pet UpdatePet(Pet updatedPet)
+        public Pet UpdatePet(Pet pet)
         {
-            var petFromDB = GetPetById(updatedPet.Id);
-            if (petFromDB == null)
-            {
-                return null;
-            }
-            else
-            {
-                petFromDB.Name = updatedPet.Name;
-                petFromDB.Owner = updatedPet.Owner;
-                petFromDB.PreviousOwner = updatedPet.PreviousOwner;
-                petFromDB.Price = updatedPet.Price;
-                petFromDB.SoldDate = updatedPet.SoldDate;
-                petFromDB.Type = updatedPet.Type;
-                petFromDB.Color = updatedPet.Color;
-                petFromDB.BirthDate = updatedPet.BirthDate;
-                return petFromDB;
-
-            }
-            
+            throw new NotImplementedException();
         }
     }
 }
