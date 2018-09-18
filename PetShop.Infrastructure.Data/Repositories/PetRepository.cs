@@ -30,7 +30,7 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet GetPetById(int id)
         {
-            return _ctx.Pets.FirstOrDefault(owner => owner.Id == id);
+            return _ctx.Pets.FirstOrDefault(pet => pet.Id == id);
         }
 
         public IEnumerable<Pet> ReadPets()
