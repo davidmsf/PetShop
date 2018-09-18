@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp3", "ConsoleApp3\ConsoleApp3.csproj", "{A590D174-74F3-499C-8D30-9CFF00C3C838}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{3F277D16-8ABF-4A65-A021-60A1193CAB3B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{9695CE6A-ABFB-4498-AB7E-0F9AD2586C47}"
@@ -17,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Core", "PetShop.Cor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetShop.Infrastructure.Data", "PetShop.Infrastructure.Data\PetShop.Infrastructure.Data.csproj", "{7A5843ED-C04D-466A-AA29-7EB248A8AAAE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Petshop.ApiRest", "Petshop.ApiRest\Petshop.ApiRest.csproj", "{4CDF857F-F2A0-415C-BACE-265262F93662}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Petshop.ApiRest", "Petshop.ApiRest\Petshop.ApiRest.csproj", "{4CDF857F-F2A0-415C-BACE-265262F93662}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -25,10 +23,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{A590D174-74F3-499C-8D30-9CFF00C3C838}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A590D174-74F3-499C-8D30-9CFF00C3C838}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A590D174-74F3-499C-8D30-9CFF00C3C838}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A590D174-74F3-499C-8D30-9CFF00C3C838}.Release|Any CPU.Build.0 = Release|Any CPU
 		{50889C27-B9BD-450E-9B33-963A2E86CDDA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{50889C27-B9BD-450E-9B33-963A2E86CDDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{50889C27-B9BD-450E-9B33-963A2E86CDDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
