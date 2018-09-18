@@ -10,9 +10,12 @@ namespace PetShop.Core.ApplicationService.Impl
     public class OwnerService : IOwnerService
     {
         private readonly IOwnerRepository _ownerRepository;
-        public OwnerService(IOwnerRepository ownerRepository)
+        private readonly IPetRepository _petRepository;
+
+        public OwnerService(IOwnerRepository ownerRepository, IPetRepository petRepository)
         {
             _ownerRepository = ownerRepository;
+            _petRepository = petRepository;
         }
 
         public Owner Create(Owner owner)
@@ -38,6 +41,13 @@ namespace PetShop.Core.ApplicationService.Impl
         public Owner GetOwnerById(int id)
         {
             return _ownerRepository.GetOwnerById(id);
+        }
+
+        public Owner GetOwnerByIdIncludePets(int id)
+        {
+            var owner = _ownerRepository.GetOwnerById(id);
+            owner.Pets = _petRepository.ReadPets().Where(pet => pet.Owner.Id == owner.Id).ToList();
+            return owner;
         }
 
         public Owner Update(Owner owner)

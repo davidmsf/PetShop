@@ -10,7 +10,7 @@ namespace PetShop.Infrastructure.Data
     public class OwnerRepository : IOwnerRepository
     {
         public Owner Create(Owner owner)
-        {
+        {                                   
             owner.Id = FakeDB.ownerId++;
             var owners = FakeDB.owners.ToList();
             owners.Add(owner);
@@ -28,7 +28,17 @@ namespace PetShop.Infrastructure.Data
 
         public Owner GetOwnerById(int id)
         {
-            var selectedOwner = FakeDB.owners.FirstOrDefault(owner => owner.Id == id);
+            var selectedOwner = FakeDB.owners.Select(owner => new Owner()
+            {
+                Id = owner.Id,
+                FirstName = owner.FirstName,
+                LastName = owner.LastName,
+                Address = owner.Address,
+                Email = owner.Email,
+                PhoneNumber = owner.PhoneNumber,
+
+            }).FirstOrDefault(owner => owner.Id == id);
+
             return selectedOwner;
         }
 

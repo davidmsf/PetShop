@@ -109,7 +109,7 @@ namespace PetShop.Infrastructure.Data
                 Address = "bobstreet",
                 Email = "bob@bobs.com",
                 PhoneNumber = "22334455",
-                Pets = new List<Pet> { new Pet() { Id = 1 }, new Pet() { Id = 2 }, new Pet() { Id = 3 } }
+                //Pets = new List<Pet> { new Pet() { Id = 1 }, new Pet() { Id = 2 }, new Pet() { Id = 3 } }
             };
 
             Owner owner2 = new Owner()
@@ -120,7 +120,7 @@ namespace PetShop.Infrastructure.Data
                 Address = "paulstreet",
                 Email = "paul@bobs.com",
                 PhoneNumber = "22334455",
-                Pets = new List<Pet> { new Pet() { Id = 4 }, new Pet() { Id = 5 }, new Pet() { Id = 6 } }
+                //Pets = new List<Pet> { new Pet() { Id = 4 }, new Pet() { Id = 5 }, new Pet() { Id = 6 } }
             };
 
             owners = new List<Owner> { owner, owner2 };

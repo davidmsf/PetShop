@@ -33,7 +33,7 @@ namespace Petshop.ApiRest.Controllers
         {
             if (id > 0)
             {
-                return _ownerService.GetOwnerById(id);
+                return _ownerService.GetOwnerByIdIncludePets(id);
             }
             else
             {
