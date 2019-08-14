@@ -18,6 +18,10 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet CreatePet(Pet pet)
         {
+            if(pet.Owner != null)
+            { 
+                _ctx.Attach(pet.Owner);
+            }
             var savedPet = _ctx.Pets.Add(pet).Entity;
             _ctx.SaveChanges();
             return savedPet;
@@ -25,7 +29,9 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var pet = GetPetById(id);
+            _ctx.Pets.Remove(pet);
+            _ctx.SaveChanges();
         }
 
         public Pet GetPetById(int id)
@@ -40,7 +46,9 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Pet UpdatePet(Pet pet)
         {
-            throw new NotImplementedException();
+            var updatedPet = _ctx.Pets.Update(pet).Entity;
+            _ctx.SaveChanges();
+            return updatedPet;
         }
     }
 }

@@ -42,6 +42,11 @@ namespace PetShop.Infrastructure.Data
             return selectedOwner;
         }
 
+        public Owner GetOwnerByIdIncludePets(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         public IEnumerable<Owner> ReadOwners()
         {
             return FakeDB.owners;

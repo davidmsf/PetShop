@@ -16,5 +16,7 @@ namespace PetShop.Core.DomainService
         Owner GetOwnerById(int id);
 
         Owner Update(Owner owner);
+
+        Owner GetOwnerByIdIncludePets(int id);
     }
 }

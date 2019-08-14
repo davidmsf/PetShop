@@ -10,9 +10,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using PetShop.Core.ApplicationService;
 using PetShop.Core.ApplicationService.Impl;
 using PetShop.Core.DomainService;
+using PetShop.Core.Entity;
 using PetShop.Infrastructure.Data;
 using PetShop.Infrastructure.Data.Repositories;
 
@@ -46,6 +48,8 @@ namespace Petshop.ApiRest
             services.AddScoped<IOwnerService, OwnerService>();
             services.AddScoped<IOwnerRepository, OwnerRepository>();
 
+            services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; });
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
@@ -58,8 +62,8 @@ namespace Petshop.ApiRest
                 using (var scope = app.ApplicationServices.CreateScope())
                 {
                     var ctx = scope.ServiceProvider.GetService<PetShopAppContext>();
-                    ctx.Database.EnsureDeleted();
-                    ctx.Database.EnsureCreated();
+                    DBSeed.seed(ctx);
+
                 }
             }
 

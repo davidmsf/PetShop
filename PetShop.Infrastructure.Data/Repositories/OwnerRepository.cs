@@ -1,4 +1,5 @@
-﻿using PetShop.Core.DomainService;
+﻿using Microsoft.EntityFrameworkCore;
+using PetShop.Core.DomainService;
 using PetShop.Core.Entity;
 using System;
 using System.Collections.Generic;
@@ -25,12 +26,19 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var owner = GetOwnerById(id);
+            _ctx.Owners.Remove(owner);
+            _ctx.SaveChanges();
         }
 
         public Owner GetOwnerById(int id)
         {
             return _ctx.Owners.FirstOrDefault(owner => owner.Id == id);
+        }
+
+        public Owner GetOwnerByIdIncludePets(int id)
+        {
+            return _ctx.Owners.Include(owner => owner.Pets).FirstOrDefault(owner => owner.Id == id);
         }
 
         public IEnumerable<Owner> ReadOwners()
@@ -40,7 +48,9 @@ namespace PetShop.Infrastructure.Data.Repositories
 
         public Owner Update(Owner owner)
         {
-            throw new NotImplementedException();
+            var updatedOwner = _ctx.Owners.Update(owner).Entity;
+            _ctx.SaveChanges();
+            return updatedOwner;
         }
     }
 }

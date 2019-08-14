@@ -11,6 +11,7 @@ namespace PetShop.Core.ApplicationService
         List<Pet> GetPets();
         void Delete(int id);
         Pet GetPetById(int id);
+        Pet GetPetByIdIncludeOwners(int id);
         Pet GetNewPet();
         Pet CreatePet(Pet pet);
         List<string> GetTypesOfPets();
